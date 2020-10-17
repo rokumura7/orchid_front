@@ -43,16 +43,17 @@ export default Vue.extend({
   },
   watch: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    line(newLine, oldLine) {
+    line(newLine, oldLine): void {
       this.searchWithInterval()
     },
   },
-  created() {
+  created(): void {
     this.searchWithInterval = _.throttle(this.search, 500)
   },
   methods: {
-    searchWithInterval() {},
+    searchWithInterval(): void {},
     changeLine(): void {
+      // HTMLElementにはvalueプロパティがないため、HTMLElementを継承したHTMLInputElementで型アサーション
       this.line = (document.getElementById('myLine') as HTMLInputElement).value
     },
     search(): void {
