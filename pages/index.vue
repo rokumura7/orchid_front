@@ -1,70 +1,62 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">orchid</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <section class="container">
+    <div class="container max-w-xl mx-auto pt-6">
+      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="line">
+            なにか入力欄
+          </label>
+          <input
+            id="myLine"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            placeholder="なにかを入力してください"
+            @input="changeLine"
+          />
+        </div>
+        <div class="mb-4 pt-5">
+          <label class="block text-gray-700 text-sm font-bold mb-2">
+            なにかの候補
+          </label>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import _ from 'lodash'
 
-export default Vue.extend({})
+export type DataType = {
+  line: string | null
+}
+
+export default Vue.extend({
+  data(): DataType {
+    return {
+      line: '',
+    }
+  },
+  watch: {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    line(newLine, oldLine) {
+      this.searchWithInterval()
+    },
+  },
+  created() {
+    this.searchWithInterval = _.throttle(this.search, 500)
+  },
+  methods: {
+    searchWithInterval() {},
+    changeLine(): void {
+      this.line = (document.getElementById('myLine') as HTMLInputElement).value
+    },
+    search(): void {
+      if (!this.line) return
+      // TODO: do something
+      console.log(this.line)
+    },
+  },
+})
 </script>
-
-<style>
-/* Sample `apply` at-rules with Tailwind CSS
-.container {
-@apply min-h-screen flex justify-center items-center text-center mx-auto;
-}
-*/
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
