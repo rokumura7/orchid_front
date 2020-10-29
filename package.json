@@ -34,7 +34,7 @@
     "@nuxtjs/eslint-module": "^3.0.0",
     "@nuxtjs/pwa": "^3.2.2",
     "@nuxtjs/tailwindcss": "^3.1.0",
-    "@types/lodash": "^4.14.162",
+    "@types/lodash": "^4.14.163",
     "@vue/test-utils": "^1.1.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
